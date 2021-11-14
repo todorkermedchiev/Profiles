@@ -5,7 +5,7 @@
     <?php include_once 'views/partials/menu.php'?>
 </div>
 <div class="col-md-10">
-    <?php if (!empty($profiles)): ?>
+    <?php if (!empty($viewModel['profiles'])): ?>
     <table class="table">
         <thead>
             <tr>
@@ -17,9 +17,9 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($profiles as $index => $profile): ?>
+            <?php foreach ($viewModel['profiles'] as $index => $profile): ?>
             <tr>
-                <th scope="row"><?= ($index + 1) + ($itemsPerPage * ($currentPage - 1)); ?></th>
+                <th scope="row"><?= ($index + 1) + ($viewModel['itemsPerPage'] * ($viewModel['currentPage'] - 1)); ?></th>
                 <td>
                     <a href="<?= create_url('profiles', 'single', ['id' => $profile['id']]); ?>">
                         <?= $profile['first_name'] . ' ' . $profile['last_name']; ?>
@@ -35,43 +35,43 @@
     
         <nav aria-label="Page navigation example">
             <ul class="pagination">
-                <?php if ($currentPage > 1): ?>
+                <?php if ($viewModel['currentPage'] > 1): ?>
                 <li class="page-item">
-                    <a class="page-link" href="index.php?currentPage=<?= $currentPage - 1; ?>" aria-label="Previous">
+                    <a class="page-link" href="<?= create_url(DEFAULT_PAGE, DEFAULT_ACTION, ['currentPage' => $viewModel['currentPage'] - 1]) ?>" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
                 <?php endif; ?>
                 
-                <?php if ($currentPage > DISPLACEMENT + 1): ?>
+                <?php if ($viewModel['currentPage'] > DISPLACEMENT + 1): ?>
                     <li class="<?= $liClass; ?>">
-                        <a class="page-link" href="index.php?currentPage=<?= $currentPage - JUMP; ?>">...</a>
+                        <a class="page-link" href="<?= create_url(DEFAULT_PAGE, DEFAULT_ACTION, ['currentPage' => $viewModel['currentPage'] - JUMP]) ?>">...</a>
                     </li>
                 <?php endif; ?>
                     
-                <?php for ($i = $currentPage - DISPLACEMENT; $i <= $currentPage + DISPLACEMENT; ++$i): ?>
-                    <?php if ($i > 0 && $i <= $totalPages): ?>
+                <?php for ($i = $viewModel['currentPage'] - DISPLACEMENT; $i <= $viewModel['currentPage'] + DISPLACEMENT; ++$i): ?>
+                    <?php if ($i > 0 && $i <= $viewModel['totalPages']): ?>
                         <?php
                         $liClass = 'page-item';
-                        if ($i === $currentPage) {
+                        if ($i === $viewModel['currentPage']) {
                             $liClass .= ' active';
                         }
                         ?>
                         <li class="<?= $liClass; ?>">
-                            <a class="page-link" href="index.php?currentPage=<?= $i; ?>"><?= $i; ?></a>
+                            <a class="page-link" href="<?= create_url(DEFAULT_PAGE, DEFAULT_ACTION, ['currentPage' => $i]) ?>"><?= $i; ?></a>
                         </li>
                     <?php endif; ?>
                 <?php endfor; ?>
                         
-                <?php if ($currentPage < $totalPages - DISPLACEMENT): ?>
+                <?php if ($viewModel['currentPage'] < $viewModel['totalPages'] - DISPLACEMENT): ?>
                     <li class="<?= $liClass; ?>">
-                        <a class="page-link" href="index.php?currentPage=<?= $currentPage + JUMP; ?>">...</a>
+                        <a class="page-link" href="<?= create_url(DEFAULT_PAGE, DEFAULT_ACTION, ['currentPage' => $viewModel['currentPage'] + JUMP]) ?>">...</a>
                     </li>
                 <?php endif; ?>
                     
-                <?php if ($currentPage < $totalPages): ?>
+                <?php if ($viewModel['currentPage'] < $viewModel['totalPages']): ?>
                 <li class="page-item">
-                    <a class="page-link" href="index.php?currentPage=<?= $currentPage + 1; ?>" aria-label="Next">
+                    <a class="page-link" href="<?= create_url(DEFAULT_PAGE, DEFAULT_ACTION, ['currentPage' => $viewModel['currentPage'] + 1]) ?>" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>

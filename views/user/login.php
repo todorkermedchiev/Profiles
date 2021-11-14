@@ -4,7 +4,7 @@
 
 ?>
 <div class="col-md-6 offset-md-3">
-    <form method="post" action="?page=user&action=login">
+    <form method="post" action="<?= create_url('user', 'login'); ?>">
         <div class="mb-3">
             <label for="email" class="form-label">Email address:</label>
             <input type="email" name="email" id="email" class="form-control" placeholder="j.doe@example.com">
@@ -22,8 +22,8 @@
 </div>
 <div class="row">
     <div class="col-md-6 offset-md-3 mt-3">
-        <a href="<?= 'index.php?page=user&action=register'; ?>">Register</a> |
+        <a href="<?= create_url('user', 'register'); ?>">Register</a> |
         <a href="#">Forgot password?</a> |
-        <a href="<?= 'index.php?page=' . DEFAULT_PAGE . '&action=' . DEFAULT_ACTION; ?>">Home page</a>
+        <a href="<?= create_url(DEFAULT_PAGE, DEFAULT_ACTION); ?>">Home page</a>
     </div>
 </div>
